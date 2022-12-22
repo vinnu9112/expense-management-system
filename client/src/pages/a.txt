@@ -1,0 +1,16 @@
+ if (editable) {
+        await axios.post("/transections/edit-transaction", {
+          payload: {
+            ...values,
+            userId: user._id,
+          },
+          transacationId: editable._id,
+        });
+        message.success("Transaction Updated Successfully");
+      } else {
+        await axios.post("/transections/add-transaction", {
+          ...values,
+          userid: user._id,
+        });
+        message.success("Transaction Added Successfully");
+      }

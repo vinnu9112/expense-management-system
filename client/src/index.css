@@ -1,0 +1,47 @@
+*{
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+.content{
+  height: 100vh;
+}
+.register-page{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+} 
+.container{
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 15px 20px;
+  box-shadow: 0 0 3px gray;
+  border-radius: 5px;
+}
+
+/* antd icons */
+
+.switch-icons{
+  border: 1px solid black;
+  border-radius: 5px;
+  padding: 10px 15px;
+}
+
+.anticon svg{
+  font-size: 20px;
+}
+
+.active-icon{
+  color: black;
+}
+
+.inactive-icon{
+  color: rgb(185, 184, 184);
+}
+.container{
+  align-items: center;
+  border-color: white;
+  box-shadow: none;
+}
