@@ -10,7 +10,7 @@ const Analytics = ({allTransactions}) => {
         'tax',
         'fees',
         'travel',
-        'other'
+        'others'
     ]
 
     //total transactions
@@ -57,7 +57,7 @@ const Analytics = ({allTransactions}) => {
         <div className="row-md-3">
             <div className="card">
                 <div className="card-header">
-                    <h3>Total Turnover: {totalTurnover}</h3>
+                    <h3>Total Amount: {totalTurnover}</h3>
                 </div>
                 <div className="card-body">
                     <h5 className='text-primary'>Income : {totalIncomeTurnover}</h5>

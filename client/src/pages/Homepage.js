@@ -93,7 +93,7 @@ const Homepage = () => {
             setEditable(record);
             setShowModal(true);
           }}/>
-          <DeleteOutlined className='mx-2'/>
+          <DeleteOutlined className='mx-2' onClick={()=>{handleDelete(record)}} />
         </div>
       )
     },
@@ -102,10 +102,32 @@ const Homepage = () => {
   const onFinish = async (values) => {
     try {
       const user = JSON.parse(localStorage.getItem('user'))
-      await axios.post("/transactions/add-transaction", { ...values, userid: user._id })
-      message.success("Transaction Added Successfully")
+      if(editable){
+        await axios.post("/transactions/edit-transaction", { 
+          payload:{...values, userid: user._id},
+          transactionId: editable._id
+         })
+        message.success("Transaction Edited Successfully")
+        setEditable(null)
+      }
+      else{
+        await axios.post("/transactions/add-transaction", { ...values, userid: user._id })
+        message.success("Transaction Added Successfully")
+      }
+      
     } catch (error) {
       message.error("Failed to Add Transaction")
+    }
+  }
+
+  const handleDelete = async(record)=>{
+    
+    try {
+      await axios.post('/transactions/delete-transaction', {transactionId:record._id})
+      message.success("Deleted Successfully")
+      console.log("clicked");
+    } catch (error) {
+      message.error("Failed to Delete Transaction")
     }
   }
   return (
@@ -150,7 +172,7 @@ const Homepage = () => {
           {viewData === 'table' ? <Table columns={columns} dataSource={allTransactions} />: <Analytics allTransactions={allTransactions} />}
       </div>
       <Modal
-        title={"Add Transaction"}
+        title={editable ? "Edit Transaction": "Add Transaction"}
         open={showModal}
         onCancel={() => setShowModal(false)}
         footer={false}
@@ -160,9 +182,9 @@ const Homepage = () => {
           name="basic"
           labelCol={{ span: 8 }}
           wrapperCol={{ span: 16 }}
-          initialValues={{ remember: true }}
+          initialValues={editable}
           onFinish={onFinish}
-          autoComplete="off"
+          autoComplete="on"
         >
           <Form.Item
             label="Amount"
